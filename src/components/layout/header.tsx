@@ -73,13 +73,15 @@ const Header = () => {
                 </span>
               </Button>
 
-              <Button
-                size="icon"
-                variant="ghost"
-                className="hover:bg-emerald-50 transition-colors p-3 relative"
+              <Link href="/favorites">
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="hover:bg-emerald-50 transition-colors p-3 relative"
               >
-                <Heart className="size-6" />
-              </Button>
+                  <Heart className="size-6" />
+                </Button>
+              </Link>
 
               {user ? (
                 <div className="hidden md:flex items-center space-x-4">

@@ -10,7 +10,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => { 
     if (checkAuthCookie()) {
       fetchUser();
-    }
+    } 
   }, []);
 
   if (isLoading) {

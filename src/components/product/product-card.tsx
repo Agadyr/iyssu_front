@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Rating } from "@/components/ui/rating";
 import { Product } from "@/types/products/types";
 import { cn } from "@/lib/utils";
 import VolumeButtons from "../VolumeButtons";
 import { useState } from "react";
+import { FavoriteButton } from "@/components/ui/favorite-button";
 
 interface ProductCardProps {
   product: Product;
@@ -51,7 +52,6 @@ export const ProductCard = ({ product, className }: ProductCardProps) => {
           />
         </div>
 
-        {/* Метки (новинка, скидка) */}
         {(discount || is_new) && <div className="absolute top-2 left-2 flex flex-col gap-1">
           {is_new && (
             <span className="bg-emerald-500 text-white  text-sm px-2 py-1 rounded">
@@ -65,35 +65,25 @@ export const ProductCard = ({ product, className }: ProductCardProps) => {
           )}
         </div>}
 
-        {/* Кнопки действий */}
+        {/* Кнопка избранного */}
         <div className="absolute top-2 right-2">
-          <Button
-            size="icon"
-            variant="ghost"
-            className="bg-white/80 hover:bg-white text-gray-700 hover:text-red-500 rounded-full shadow-sm"
-          >
-            <Heart className="h-6 w-6" />
-          </Button>
+          <FavoriteButton productId={id} product={product} size="lg" />
         </div>
       </div>
 
       <div className="p-4">
-        {/* Категория */}
         {category && (
           <div className="text-xs text-gray-500 mb-1">{category.name}</div>
         )}
 
-        {/* Бренд */}
         <div className="text-sm font-medium text-gray-900 mb-1">{brand}</div>
 
-        {/* Название */}
-        <h3 className="font-medium text-gray-800 mb-2 line-clamp-2 h-7">
+        <h3 className="font-medium text-gray-800 mb-2 line-clamp-2 sm:h-5 md:h-12">
           <Link href={`/product/${id}`} className="hover:text-emerald-600 transition-colors">
             {name}
           </Link>
         </h3>
         
-        {/* Рейтинг */}
         <div className="mb-3">
           <Rating rating={rating} reviewCount={parseInt(reviews_count)} />
         </div>

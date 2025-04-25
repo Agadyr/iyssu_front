@@ -13,11 +13,8 @@ const ScrollUp = () => {
       setIsVisible(shouldShow);
       
       if (shouldShow) {
-        
-        if (window.scrollY > 200) {
-          if (scrollTimerRef.current) {
-            clearTimeout(scrollTimerRef.current);
-          }
+        if (scrollTimerRef.current) {
+          clearTimeout(scrollTimerRef.current);
         }
       }
     };

@@ -3,7 +3,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { Clock } from 'lucide-react';
 import { Product } from '@/types/products/types';
 import { cn } from '@/lib/utils';
-import { ProductCard } from '@/components/product/product-card';
+import { ProductCard } from '@/components/product/Product-card';
 import { CarouselNavigation } from '@/components/ui/carousel-navigation';
 
 interface ProductOfTheDayCardProps {
@@ -108,10 +108,10 @@ export const ProductOfTheDayCard = ({ product, className }: ProductOfTheDayCardP
   return (
     <div className={cn("bg-white rounded-lg overflow-hidden shadow-md relative", className)}>
       <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-        <h3 className="text-xl font-bold text-gray-900">Товар дня</h3>
-        <div className="flex items-center text-gray-700 bg-amber-100 px-3 py-1 rounded-md font-bold">
+        <h3 className="text-xl pl-4 font-bold text-gray-900">Товар дня</h3>
+        <div className="flex items-center text-gray-700 bg-amber-100 px-3 mx-3 py-1 rounded-md">
           <Clock className="w-4 h-4 mr-2 text-amber-500" />
-          <span>
+          <span className='font-bold'>
             {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
           </span>
         </div>

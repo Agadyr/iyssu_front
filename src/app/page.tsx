@@ -5,12 +5,16 @@ import { ProductGrid } from "@/components/product/ProductGrid";
 import { PromoCarousel } from "@/components/carousel/PromoCarousel";
 import { ProductOfTheDayCard } from "@/components/carousel/ProductOfTheDayCard";
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Heart } from 'lucide-react';
 import Link from "next/link";
 import Header from "@/components/layout/header";
 import ScrollUp from "@/components/ui/scrolUp";
+import { useFavorite } from "@/hooks/useFavorite";
+import { useEffect } from "react";
+import Loading from "@/components/ui/loading";
 
-export default function Home() {    
+export default function Home() {
+  
   return (
     <div>
       <Header />  
@@ -31,12 +35,20 @@ export default function Home() {
         <section>
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold text-gray-900">Популярные товары</h2>
-            <Link href="/catalog">
-              <Button variant="outline" className="group">
-                Все товары
-                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/favorites">
+                <Button variant="outline" className="group">
+                  Избранное
+                  <Heart className="ml-2 w-4 h-4 transition-colors group-hover:scale-110 group-hover:text-red-500" />
+                </Button>
+              </Link>
+              <Link href="/catalog">
+                <Button variant="outline" className="group">
+                  Все товары
+                  <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            </div>
           </div>
           <PopularProductsContent />
         </section>
@@ -51,11 +63,8 @@ function ProductOfTheDayContent() {
   
   if (isLoading) {
     return (
-      <div className="bg-white rounded-lg shadow-md h-full flex items-center justify-center p-8">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-emerald-500 mx-auto mb-4"></div>
-          <p className="text-gray-500">Загрузка товара дня...</p>
-        </div>
+      <div className="bg-white rounded-lg shadow-md flex items-center justify-center p-8 h-[500px]">
+        <Loading text="Загрузка ..." />
       </div>
     );
   }
@@ -65,9 +74,6 @@ function ProductOfTheDayContent() {
       <div className="bg-white rounded-lg shadow-md h-full flex items-center justify-center p-8">
         <div className="text-center">
           <p className="text-gray-500 mb-4">Не удалось загрузить товар дня</p>
-          <Button variant="outline" onClick={() => window.location.reload()}>
-            Попробовать снова
-          </Button>
         </div>
       </div>
     );
@@ -77,13 +83,15 @@ function ProductOfTheDayContent() {
 }
 
 function PopularProductsContent() {
+  const { fetchFavorites } = useFavorite();
+  useEffect(() => {fetchFavorites()}, []);
+  
   const { products, isLoading, error } = useProducts();
   
   if (isLoading) {
     return (
       <div className="bg-white rounded-lg shadow-md p-8 text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-emerald-500 mx-auto mb-4"></div>
-        <p className="text-gray-500">Загрузка товаров...</p>
+        <Loading text="Загрузка ..." />
       </div>
     );
   }

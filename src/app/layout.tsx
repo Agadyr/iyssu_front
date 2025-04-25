@@ -4,6 +4,7 @@ import "./globals.css";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState } from 'react'
+import { Toaster } from 'sonner';
 
 export default function RootLayout({
   children,
@@ -23,6 +24,7 @@ export default function RootLayout({
     <QueryClientProvider client={queryClient}>
       <html lang="ru">
         <body>  
+          <Toaster position="bottom-right" richColors />
           <ProtectedRoute>
             {children}
           </ProtectedRoute>
