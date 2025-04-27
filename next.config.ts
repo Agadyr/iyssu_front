@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
       {
         hostname: 'localhost',
       },
+      {
+        hostname: 'iyssu-backend-main-aaup01.laravel.cloud',
+      },
+      {
+        hostname: 'iyssu-front.vercel.app',
+      },
     ],
   }
 };
