@@ -17,7 +17,12 @@ export default function FavoritesPage() {
   const { favorites } = useFavoriteStore(); 
   
   useEffect(() => {
-    fetchFavorites();
+    const loadFavorites = async () => {
+      await fetchFavorites();
+    };
+    
+    loadFavorites();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

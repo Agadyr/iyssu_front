@@ -25,9 +25,6 @@ const ScrollUp = () => {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (scrollTimerRef.current) {
-        clearTimeout(scrollTimerRef.current);
-      }
     };
   }, []);
 

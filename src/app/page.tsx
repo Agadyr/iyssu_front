@@ -86,7 +86,14 @@ function ProductOfTheDayContent() {
 
 function PopularProductsContent() {
   const { fetchFavorites } = useFavorite();
-  useEffect(() => {fetchFavorites()}, []);
+  
+  useEffect(() => {
+    const loadFavorites = async () => {
+      await fetchFavorites();
+    };
+    
+    loadFavorites();
+  }, []);
   
   const { products, isLoading, error } = useProducts();
   

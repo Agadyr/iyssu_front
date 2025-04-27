@@ -2,6 +2,7 @@ import api from "@/lib/axios";
 import { toast } from "sonner";
 import { useFavoriteStore } from "@/store/favorite/favoriteStore";
 import { Product } from "@/types/products/types";
+import { useCallback } from "react";
 
 export const useFavorite = () => {
   const { 
@@ -15,19 +16,23 @@ export const useFavorite = () => {
     removeFavorite
   } = useFavoriteStore();
 
-  const fetchFavorites = async () => {
+  // Используем useCallback, чтобы функция была стабильной между рендерами
+  const fetchFavorites = useCallback(async () => {
+    // Проверяем, не идет ли уже загрузка, чтобы избежать множественных запросов
+    if (isLoading) return;
+    
     setLoading(true);
     try {
       const response = await api.get("api/favorite");
       setFavorites(response.data);
-      setLoading(false);
     } catch (error) {
       console.error("Ошибка при получении избранного:", error);
       setError(error as Error);
-      setLoading(false);
       setFavorites([]);
+    } finally {
+      setLoading(false);
     }
-  };
+  }, [isLoading, setError, setFavorites, setLoading]);
 
   const addToFavorites = async (productId: number, product?: Product) => {
     if (product) {

@@ -4,22 +4,58 @@ import { useAuthStore } from "@/store/auth/authStore";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { LogOut, User, ShoppingCart, Menu, Heart } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MobileMenu from "./MobileMenu";
-import LoadingScreen from "@/app/loading";
 import TopBar from "./TopBar";
 import SearchBar from "./SearchBar";
 
 const Header = () => {
-  const { user, logout } = useAuthStore();
+  const { user, logout, fetchUser } = useAuthStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const initUser = async () => {
+      try {
+        if (!user) {
+          await fetchUser();
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    initUser();
+  }, [fetchUser, user]);
 
   const handleLogout = async () => {
     await logout();
   };
 
-  if (!user) {
-    return <LoadingScreen />;
+  // Вместо полноэкранного лоадера используем простую заглушку
+  if (isLoading) {
+    return (
+      <>
+        <TopBar />
+        <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
+          <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-10">
+            <div className="flex justify-between items-center h-20">
+              <div className="flex-shrink-0">
+                <Link href="/" className="flex items-center">
+                  <span className="text-3xl font-bold text-gray-900 tracking-tight">
+                    Iys{" "}
+                    <span className="text-emerald-500 bg-emerald-50 px-2 rounded-md">
+                      su
+                    </span>
+                  </span>
+                </Link>
+              </div>
+              <div className="animate-pulse h-8 w-24 bg-gray-200 rounded"></div>
+            </div>
+          </div>
+        </header>
+      </>
+    );
   }
 
   return (
