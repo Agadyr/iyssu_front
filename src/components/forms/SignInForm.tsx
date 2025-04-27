@@ -37,13 +37,10 @@ const SignInForm = () => {
         const response = await api.post(endpoint, formData);
         
         if (response.data.user) {
+          localStorage.setItem('auth_token', response.data.token);            
+          
           setUser(response.data.user);
           setIsAuthenticated(true);
-  
-          const expires = new Date();
-          expires.setDate(expires.getDate() + 30);
-  
-          document.cookie = `auth_token=${response.data.token}; path=/; expires=${expires.toUTCString()}; SameSite=None; Secure`;
   
           if (!response.data.user.email_verified_at) {
             router.push('/verify-email');

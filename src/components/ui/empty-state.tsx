@@ -19,7 +19,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         {icon}
       </div>
       <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-500 mb-6 max-w-md">{description}</p>
+      <p className="text-gray-500 mb-6 ">{description}</p>
       {action && <div>{action}</div>}
     </div>
   );

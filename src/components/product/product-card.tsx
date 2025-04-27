@@ -78,7 +78,7 @@ export const ProductCard = ({ product, className }: ProductCardProps) => {
 
         <div className="text-sm font-medium text-gray-900 mb-1">{brand}</div>
 
-        <h3 className="font-medium text-gray-800 mb-2 line-clamp-2 sm:h-5 md:h-12">
+        <h3 className="font-medium text-gray-800 mb-2 line-clamp-2 h-5">
           <Link href={`/product/${id}`} className="hover:text-emerald-600 transition-colors">
             {name}
           </Link>
@@ -89,7 +89,7 @@ export const ProductCard = ({ product, className }: ProductCardProps) => {
         </div>
 
         <div className="flex gap-2">
-          {volume_options.map((volume, index) => (
+          {volume_options?.map((volume, index) => (
             <VolumeButtons 
               key={index} 
               volume={volume} 

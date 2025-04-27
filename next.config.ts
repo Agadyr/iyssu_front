@@ -6,9 +6,14 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         hostname: 'localhost',
+        
       },
     ],
   },
+  allowedHosts: [
+    'bright-presently-hornet.ngrok-free.app',
+    '127.0.0.1',
+  ],
 };
 
 export default nextConfig;

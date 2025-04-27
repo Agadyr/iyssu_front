@@ -7,10 +7,11 @@ import Link from 'next/link';
 import EmptyState from '@/components/ui/empty-state';
 import Header from '@/components/layout/header';
 import { useEffect } from 'react';
-import { FavoriteButton } from '@/components/ui/favorite-button';
 import { useFavorite } from '@/hooks/useFavorite';
 import { useFavoriteStore } from '@/store/favorite/favoriteStore';
 import Loading from '@/components/ui/loading';
+import ProtectedRoute from '@/components/ProtectedRoute';
+
 export default function FavoritesPage() {
   const { isLoading, error, fetchFavorites } = useFavorite();
   const { favorites } = useFavoriteStore(); 
@@ -20,7 +21,7 @@ export default function FavoritesPage() {
   }, []);
 
   return (
-    <>
+    <ProtectedRoute>
       <Header />
       <div className="container mx-auto py-8 px-4">
         <div className="flex items-center justify-between mb-6">
@@ -42,15 +43,9 @@ export default function FavoritesPage() {
             Не удалось загрузить избранные товары. Пожалуйста, попробуйте позже.
           </div>
         ) : favorites && favorites.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {favorites.map((item) => (
               <div key={item.product.id} className="relative">
-                <div className="absolute top-2 right-2 z-10">
-                  <FavoriteButton 
-                    productId={item.product.id} 
-                    size="lg"
-                  />
-                </div>
                 <ProductCard key={item.product.id} product={item.product} />
               </div>
             ))}
@@ -70,6 +65,6 @@ export default function FavoritesPage() {
           />
         )}
       </div>
-    </>
+    </ProtectedRoute>
   );
 } 

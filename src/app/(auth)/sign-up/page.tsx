@@ -3,12 +3,10 @@
 import AuthForm from "@/components/forms/AuthForm";
 
 const SignUp = () => {
-
-
   return (
-    <div className="w-full">
-      <AuthForm type="signUp" />
-    </div>
+      <div className="w-full">
+        <AuthForm type="signUp" />
+      </div>
   );
 };
 

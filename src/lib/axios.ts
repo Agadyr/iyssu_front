@@ -6,8 +6,16 @@ const api = axios.create({
         "Content-Type": "application/json",
         "Accept": "application/json",
     },
-    withCredentials: true,
-    withXSRFToken: true,
+});
+
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('auth_token');
+
+    if (token) {
+        config.headers.Authorization= `Bearer ${token}`;
+    }
+
+    return config;
 });
 
 api.interceptors.response.use((response) => response, (error) => {

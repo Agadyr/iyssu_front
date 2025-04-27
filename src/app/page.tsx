@@ -12,48 +12,50 @@ import ScrollUp from "@/components/ui/scrolUp";
 import { useFavorite } from "@/hooks/useFavorite";
 import { useEffect } from "react";
 import Loading from "@/components/ui/loading";
-
+import ProtectedRoute from "@/components/ProtectedRoute";
 export default function Home() {
   
   return (
-    <div>
-      <Header />  
-      <ScrollUp />
-      <main className="container mx-auto space-y-8 py-6 md:px-0 px-4">
-        <section>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className="lg:col-span-8">
-              <PromoCarousel />
+    <ProtectedRoute>
+      <div>
+        <Header />  
+        <ScrollUp />
+        <main className="container mx-auto space-y-8 py-6 md:px-0 px-4">
+          <section>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div className="lg:col-span-8">
+                <PromoCarousel />
+              </div>
+              
+              <div className="lg:col-span-4">
+                <ProductOfTheDayContent />
+              </div>
             </div>
-            
-            <div className="lg:col-span-4">
-              <ProductOfTheDayContent />
+          </section>
+          
+          <section>
+            <div className="flex flex-col md:flex-row justify-between md:items-center items-start mb-8 sm:mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 sm:mb-0 mb-2">Популярные товары</h2>
+              <div className="flex items-center gap-4">
+                <Link href="/favorites">
+                  <Button variant="outline" className="group">
+                    Избранное
+                    <Heart className="ml-2 w-4 h-4 transition-colors group-hover:scale-110 group-hover:text-red-500" />
+                  </Button>
+                </Link>
+                <Link href="/catalog">
+                  <Button variant="outline" className="group">
+                    Все товары
+                    <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+              </div>
             </div>
-          </div>
-        </section>
-        
-        <section>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold text-gray-900">Популярные товары</h2>
-            <div className="flex items-center gap-4">
-              <Link href="/favorites">
-                <Button variant="outline" className="group">
-                  Избранное
-                  <Heart className="ml-2 w-4 h-4 transition-colors group-hover:scale-110 group-hover:text-red-500" />
-                </Button>
-              </Link>
-              <Link href="/catalog">
-                <Button variant="outline" className="group">
-                  Все товары
-                  <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-          <PopularProductsContent />
-        </section>
-      </main>
-    </div>
+            <PopularProductsContent />
+          </section>
+        </main>
+      </div>
+    </ProtectedRoute>
   );
 }
 

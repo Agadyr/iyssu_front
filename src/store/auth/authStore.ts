@@ -12,17 +12,21 @@ interface AuthState {
   fetchUser: () => Promise<void>;
   logout: () => Promise<void>;
   setIsAuthenticated: (isAuthenticated: boolean) => void;
+  setIsLoading: (isLoading: boolean) => void;
 }
 
-export const checkAuthCookie = () => {
-  if (typeof window === 'undefined') return false;
-  return document.cookie.includes('auth_token=');
+// Проверка наличия токена в localStorage
+export const checkAuthToken = () => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('auth_token') !== null;
+  }
+  return false;
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   email: '',
-  isAuthenticated: false,
+  isAuthenticated: checkAuthToken(), // Используем функцию проверки при инициализации
   isLoading: false,
 
   setUser: (user) => {
@@ -35,6 +39,10 @@ export const useAuthStore = create<AuthState>((set) => ({
   
   setEmail: (email) => {
     set({ email })
+  },
+
+  setIsLoading: (isLoading) => {
+    set({ isLoading });
   },
 
   fetchUser: async () => {
@@ -59,6 +67,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   logout: async () => {
     try {
       await api.post("api/auth/logout");
+      localStorage.removeItem('auth_token');
       set({ 
         user: null, 
         isAuthenticated: false, 
