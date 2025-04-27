@@ -1,6 +1,6 @@
 'use client';
 
-import { ProductCard } from '@/components/product/Product-card';
+import { ProductCard } from '@/components/product/ProductCard';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Heart } from 'lucide-react';
 import Link from 'next/link';

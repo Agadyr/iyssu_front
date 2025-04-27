@@ -3,7 +3,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { Clock } from 'lucide-react';
 import { Product } from '@/types/products/types';
 import { cn } from '@/lib/utils';
-import { ProductCard } from '@/components/product/Product-card';
+import { ProductCard } from '@/components/product/ProductCard';
 import { CarouselNavigation } from '@/components/ui/carousel-navigation';
 
 interface ProductOfTheDayCardProps {
