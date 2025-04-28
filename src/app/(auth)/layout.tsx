@@ -7,7 +7,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {  
   return (
-      <main className="flex min-h-screen bg-white">
+      <main className="flex max-h-screen h-screen bg-white">
         <section className="w-full md:w-1/2 flex items-center justify-center p-4 md:p-8 bg-gradient-to-b from-gray-50 to-white">
           <div className="w-full max-w-md">
             {children}

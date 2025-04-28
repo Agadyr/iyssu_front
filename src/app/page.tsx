@@ -20,7 +20,7 @@ export default function Home() {
       <div>
         <Header />  
         <ScrollUp />
-        <main className="container mx-auto space-y-8 py-6 md:px-0 px-4">
+        <main className="container mx-auto space-y-8 py-6 px-4">
           <section>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               <div className="lg:col-span-8">
